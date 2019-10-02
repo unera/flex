@@ -1,0 +1,269 @@
+@width-sm: 768px;
+@width-md: 992px;
+@width-lg: 1200px;
+
+
+// случай, когда появляющаяся клавиатура
+// занимает более половины выссоты браузера, (экрана)
+// и портретная ориентация становится ландшафтом
+.mediaPortrait(@ruleset) {
+    @media (orientation: portrait), (orientation: landscape) and (max-device-aspect-ratio: 16/14) {
+        @ruleset();
+    }
+}
+
+.mediaLandscape(@ruleset) {
+    @media (orientation: landscape) and (min-device-aspect-ratio: 16/14) {
+        @ruleset();
+    }
+}
+
+.stage-view {
+
+    .view(@q) when (@q >= 0) {
+        .mediaPortrait({
+            &.stage-@{q} > [class*="stage-view-"]:not(.stage-view-@{q}):not(.po-stage-view-@{q}):not(.stage-view-any):not(.po-stage-view-any) {
+                display: none;
+            }
+        });
+        .mediaLandscape({
+            &.stage-@{q} > [class*="stage-view-"]:not(.stage-view-@{q}):not(.lo-stage-view-@{q}):not(.stage-view-any):not(.lo-stage-view-any) {
+                display: none;
+            }
+        });
+
+        .view(@q - 1)
+    }
+    .view(24);
+}
+
+.fill {
+    width: 100%;
+    height: 100%;
+}
+
+.h-fill {
+    height: 100%;
+}
+
+.w-fill {
+    width: 100%;
+}
+
+@media (max-width: 767px) {
+    .h-fill-xs {
+        height: 100%;
+    }
+}
+@media (min-width: @width-sm) and (max-width: 991px) {
+    .h-fill-sm {
+        height: 100%;
+    }
+}
+@media (min-width: @width-md) and (max-width: 1200px) {
+    .h-fill-md {
+        height: 100%;
+    }
+}
+@media (min-width: @width-lg) {
+    .h-fill-lg {
+        height: 100%;
+    }
+}
+
+
+.mediaPortrait({
+    *:not(html).landscape,
+    *:not(html).flex.landscape {
+        display: none;
+    }
+});
+.mediaLandscape({
+    *:not(html).portrait,
+    *:not(html).flex.portrait {
+        display: none;
+    }
+});
+@media (orientation: landscape) {
+}
+
+@media (orientation: portrait) {
+}
+
+.child- {
+    &center, &vcenter  {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+    }
+
+    &center {
+        justify-content: center;
+        >* {
+            margin: auto;
+        }
+    }
+
+    &vcenter {
+        justify-content: flex-start;
+        >* {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+    }
+
+    &vtop {
+        display: flex;
+
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: flex-start;
+
+
+        >* {
+            margin: auto;
+            margin-top: 0;
+        }
+    }
+
+    &vbottom {
+        display: flex;
+
+        flex-direction: column-reverse;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: flex-start;
+
+
+        >* {
+            margin: auto;
+            margin-bottom: 0;
+        }
+    }
+}
+
+.flex > *.overflow,
+.flex.eflex > *.overflow,
+.flex.eflex.overflow,
+.flex.overflow,
+.overflow {
+    &-y {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    &-x {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+.mediaPortrait({
+    .flex > *.po-overflow,
+    .flex.eflex > *.po-overflow,
+    .flex.eflex.po-overflow,
+    .flex.po-overflow,
+    .po-overflow {
+        &-y {
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        &-x {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+    }
+});
+.mediaLandscape({
+    .flex > *.lo-overflow,
+    .flex.eflex > *.lo-overflow,
+    .flex.eflex.lo-overflow,
+    .flex.lo-overflow,
+    .lo-overflow {
+        &-y {
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        &-x {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+    }
+});
+
+
+@media (max-width: 767px) {
+    .flex > *.overflow-xs,
+    .flex.eflex > *.overflow-xs,
+    .flex.eflex.overflow-xs,
+    .flex.overflow-xs,
+    .overflow-xs {
+        &-y {
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        &-x {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+    }
+}
+
+@media (min-width: @width-sm) and (max-width: 991px) {
+    .flex > *.overflow-sm,
+    .flex.eflex > *.overflow-sm,
+    .flex.eflex.overflow-sm,
+    .flex.overflow-sm,
+    .overflow-sm {
+        &-y {
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        &-x {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+    }
+}
+
+@media (min-width: @width-md) and (max-width: 1200px) {
+    .flex > *.overflow-md,
+    .flex.eflex > *.overflow-md,
+    .flex.eflex.overflow-md,
+    .flex.overflow-md,
+    .overflow-md {
+        &-y {
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        &-x {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+    }
+}
+
+@media (min-width: @width-lg) {
+    .flex > *.overflow-lg,
+    .flex.eflex > *.overflow-lg,
+    .flex.eflex.overflow-lg,
+    .flex.overflow-lg,
+    .overflow-lg {
+        &-y {
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        &-x {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+    }
+}
